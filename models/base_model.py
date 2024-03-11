@@ -6,17 +6,26 @@ import uuid
 class BaseModel:
     """BaseModel Class"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Initialize Object
         argument: self
         returns: Null
         """
-        self.my_number = 0
-        self.name = ""
-        self.id = ""
-        self.set_uuid()
-        self.timestamp()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
+                elif key == "__class__":
+                    setattr(self, "_BaseModel__class__", value)  # Handle __class__ separately
+                else:
+                    setattr(self, key, value)
+        else:
+            self.my_number = 0
+            self.name = ""
+            self.id = ""
+            self.set_uuid()
+            self.timestamp()
 
     def timestamp(self):
         """
@@ -44,14 +53,7 @@ class BaseModel:
 
     def rebuild(self, params):
         """"
-        date_format = "%Y-%m-%dT%H:%M:%S.%f"
-        neo = {
-            datetime.datetime.strptime(value, date_format)
-            if key == "created_at" else value
-            if key == "modified_at" else value
-            for key, value in params.items()
-            if key != "__class__"
-        }
+        Placeholder for the rebuild method
         """
         pass
 
@@ -59,9 +61,9 @@ class BaseModel:
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id, str(self.__dict__))
 
 
-
 if __name__ == "__main__":
     base_model = BaseModel()
+
 if __name__ == "__main__" and hasattr(__builtins__, '__interactivehook__'):
     # Include any interactive code or tests here
     print("Running in interactive mode.")
@@ -84,6 +86,4 @@ if __name__ == "__main__" and hasattr(__builtins__, '__interactivehook__'):
     rebuilt_model = BaseModel()
     rebuilt_model.rebuild(model_dict)
     print("Rebuilt instance from dictionary:", rebuilt_model)
-
-    # Include any other tests or checks specific to your BaseModel class
 
