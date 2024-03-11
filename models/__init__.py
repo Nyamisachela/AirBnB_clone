@@ -1,11 +1,13 @@
+from .base_model import BaseModel
+from .engine.file_storage import FileStorage
 
-from.base_model import BaseModel
+storage = FileStorage()
+storage.reload()
 
 my_models = {"base": BaseModel}
 
-
 def get_model(name):
-    """Return instance of named model"""
+    """Return an instance of the named model"""
     if name in my_models:
         return my_models[name]()
     else:
