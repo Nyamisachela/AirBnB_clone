@@ -1,10 +1,14 @@
 import json
 
+
 class FileStorage:
     """file storage class"""
-    
+
     def __init__(self):
-        """Sets the default path for the JSON file (__file_path) and initializes an empty dictionary for storing objects (__objects)."""
+        """
+        Sets the default path for the JSON file (__file_path)
+        and initializes an empty dictionary for storing objects (__objects)
+        """
         self.__file_path = "file.json"
         self.__objects = {}
 
@@ -20,7 +24,7 @@ class FileStorage:
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)"""
         serialized_objects = {}
-        for key, object in self.__objects.items():
+        for key, obj in self.__objects__.items():
             serialized_objects[key] = obj.to_dict()
 
         with open(self.__file_path, 'w') as file:
@@ -38,5 +42,3 @@ class FileStorage:
 
         except FileNotFoundError:
             pass  # Do nothing if the file doesn't exist
-
-
