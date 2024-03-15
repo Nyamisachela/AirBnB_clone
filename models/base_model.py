@@ -49,8 +49,8 @@ class BaseModel:
     def to_dict(self):
         """Get object and class attributes, write them to self.my_dict"""
         self.__dict__["__class__"] = self.__class__.__name__
-        self.created_at = str(self.created_at)
-        self.updated_at = str(self.updated_at)
+        self.created_at = str(self.created_at.isoformat())
+        self.updated_at = str(self.updated_at.isoformat())
         return self.__dict__.copy()
 
     def set_uuid(self):
