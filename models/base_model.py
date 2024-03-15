@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import datetime
 import uuid
-from models.engine.file_storage import FileStorage
+# from models.engine.file_storage import FileStorage
 
 
 class BaseModel:
@@ -36,18 +36,21 @@ class BaseModel:
         Get timestamp, format it to ISO
         Initialize created_at and updated_at with timestamp
         """
-        now = datetime.datetime.now().isoformat()
+        now = datetime.datetime.now()
+        now.isoformat()
         self.created_at = now
         self.updated_at = now
 
     def save(self):
         """Update the property updated_at with the current timestamp"""
-        self.updated_at = datetime.datetime.now().isoformat()
-        #storage.save()
+        self.updated_at = datetime.datetime.now()
+        self.updated_at.isoformat()
 
     def to_dict(self):
         """Get object and class attributes, write them to self.my_dict"""
         self.__dict__["__class__"] = self.__class__.__name__
+        self.created_at = str(self.created_at)
+        self.updated_at = str(self.updated_at)
         return self.__dict__.copy()
 
     def set_uuid(self):
