@@ -1,6 +1,7 @@
 import unittest
 import datetime
 from models.base_model import BaseModel
+import pytest
 
 
 class TestBaseModel(unittest.TestCase):
@@ -8,7 +9,7 @@ class TestBaseModel(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """Setup test self.bm.ct as a class attribute"""
+        """Setup test object"""
         cls.bm = BaseModel()
 
     def test_init(self):
@@ -84,7 +85,27 @@ class TestBaseModel(unittest.TestCase):
         }
         self.assertEqual(self.bm.to_dict(), v_dict)
 
+    @unittest.skip
+    def irrigate(self):
+        return {
+            '__class__': 'BaseModel',
+            'id': self.bm.id,
+            'name': self.bm.name,
+            'my_number': self.bm.my_number,
+            'created_at': self.bm.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f"),
+            'updated_at': self.bm.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        }
 
+    def test_verify_neo(self):
+        data = self.irrigate()
+        neo = ModelBase(data)
+        self.assertEqual(neo.id, data.id)
+        self.assertEquals(neo.__class__,__name__, data,__class__)
+        self.assertEqual(neo.created_at, data.created_at)
+        self.assertEqual(neo.updated_at, data.updated_at)
+        self.assertEqual(neo.name, data.name)
+        self.assertEqual(neo.my_number, data.my_number)
+        self.assertEqual(neo.__class__.__name__, data.__class__)
 
 
 if __name__ == '_main__':
