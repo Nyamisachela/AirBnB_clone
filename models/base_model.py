@@ -12,17 +12,18 @@ class BaseModel:
         If **kwargs is true use it to reconstruct object contained therein
         IF NOT create a new instance
         """
-        if not not kwargs:
-            t_keys = {"created_at", "updated_at"}
-            self.__dict__ = {key:
-                             (value.isoformat() if key in t_keys else value)
-                             for key, value in kwargs.items()
-                             if key != "__class__"}
-
+        if kwargs:
             for key, value in kwargs.items():
-                if key == "__class__":
+                if key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.datetime.strptime(
+                        value,
+                        "%Y-%m-%dT%H:%M:%S.%f"
+                    ))
+                elif key == "__class__":
+                    setattr(self, "_BaseModel__class__", value)
+                else:
                     setattr(self, key, value)
-
+            return
         else:
             self.name: str = None
             self.my_number: int = None
@@ -50,9 +51,8 @@ class BaseModel:
         return "[{}] ({}) {}".format(
             self.__class__.__name__,
             self.id,
-            str(self.__dict__)
-        )
+            str(self.__dict__))
 
 
-if __name__ == "__main__":
-    base_model = BaseModel(params=None, dict=None)
+if __name__ == "main":
+    base_model = BaseModel()

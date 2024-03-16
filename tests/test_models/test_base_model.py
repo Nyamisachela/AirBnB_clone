@@ -1,7 +1,6 @@
 import unittest
 import datetime
 from models.base_model import BaseModel
-import pytest
 
 
 class TestBaseModel(unittest.TestCase):
