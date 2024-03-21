@@ -20,7 +20,8 @@ class BaseModel:
                         "%Y-%m-%dT%H:%M:%S.%f"
                     ))
                 elif key == "__class__":
-                    setattr(self, "_BaseModel__class__", value)
+                    #setattr(self, "__class__",value)
+                    pass
                 else:
                     setattr(self, key, value)
             return
