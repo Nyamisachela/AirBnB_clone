@@ -1,0 +1,17 @@
+.locations, .amenities {
+    width: 25%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+}
+.locations {
+    border-right: 1px solid #DDDDDD;
+}
+h3, h4 {
+    font-weight: 600;
+    color: #484848;
+}
+h4 {
+    font-weight: 400;
+    font-size: 14px;
+}
