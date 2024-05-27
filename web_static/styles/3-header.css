@@ -3,4 +3,15 @@ header {
     height: 70px;
     width: 100%;
     border-bottom: 1px solid #CCCCCC;
+
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    background-image: url(../images/logo.png);
+    width: 136px;
+    height: 60px;
+    position: absolute;
+    margin-left: 20px;
 }
